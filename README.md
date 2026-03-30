@@ -1,18 +1,93 @@
-# React + Vite
+# 🚀 Intelligent Q&A Engine
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered full-stack web application that delivers fast, structured, and intelligent responses to user queries using modern technologies.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Project Overview
 
-## React Compiler
+The **Intelligent Q&A Engine** is designed to provide accurate answers using AI while maintaining a clean UI and efficient backend processing. It integrates seamlessly with AI APIs and presents responses in a readable, formatted way.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+* **Frontend:** React + Material UI (MUI)
+* **Backend:** Node.js
+* **AI API:** OpenRouter (GPT-4o-mini)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+* 🤖 **AI-Powered Q&A Engine**
+  Integrated with OpenRouter API for fast and accurate responses.
+
+* ⚡ **High Performance**
+  Optimized API handling for quick response times.
+
+* 📊 **Structured Metadata**
+  Tracks and stores:
+
+  * Token usage
+  * Model name for each response
+
+* 📝 **Markdown Support**
+  Fully supports:
+
+  * Bold text
+  * Numbered lists
+  * Bullet points
+
+* 🎨 **Modern UI**
+  Built using Material UI for a clean and responsive design.
+
+---
+
+## 🌐 Live Demo
+
+👉 [Add your deployment link here]
+
+---
+
+## 💻 GitHub Repository
+
+👉 [Add your repository link here]
+
+---
+
+## ⚙️ Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/your-repo-name.git
+
+# Navigate into the project
+cd your-repo-name
+
+# Install frontend dependencies
+cd client
+npm install
+
+# Install backend dependencies
+cd ../server
+npm install
+
+# Start the application
+npm start
+```
+
+---
+
+## 🚀 Future Improvements
+
+* User authentication (Login/Signup)
+* Chat history storage
+* Dark mode support
+* Performance optimizations
+
+---
+
+## 📬 Contact
+
+Feel free to reach out for collaboration or feedback!
