@@ -65,19 +65,19 @@ const ChatBox = () => {
     }}>
       {/* Header */}
       <Box sx={{ 
-        p: 2, 
-        px: { xs: 2, md: 4 }, // Responsive padding for mobile!
+        p: { xs: 1.2, md: 2 }, // Even tighter on mobile!
+        px: { xs: 2, md: 4 }, 
         borderBottom: '1px solid #1e2229', 
         display: 'flex', 
         alignItems: 'center', 
-        gap: 1.5,
+        gap: 1.2,
         bgcolor: '#111419' 
       }}>
-        <Avatar sx={{ bgcolor: '#3b82f6', width: 32, height: 32 }}>
-          <SmartToyIcon fontSize="small" />
+        <Avatar sx={{ bgcolor: '#3b82f6', width: { xs: 28, md: 32 }, height: { xs: 28, md: 32 } }}>
+          <SmartToyIcon sx={{ fontSize: { xs: 16, md: 20 } }} />
         </Avatar>
-        <Typography variant="h6" fontWeight="700" sx={{ color: '#ffffff', letterSpacing: '1px' }}>AskAI</Typography>
-        <Typography variant="caption" sx={{ ml: 'auto', color: '#6b7280' }}>Global Interface Active</Typography>
+        <Typography variant="h6" fontWeight="700" sx={{ color: '#ffffff', letterSpacing: '0.5px', fontSize: { xs: '1.1rem', md: '1.25rem' } }}>AskAI</Typography>
+        <Typography variant="caption" sx={{ ml: 'auto', color: '#6b7280', display: { xs: 'none', sm: 'block' } }}>Global Interface Active</Typography>
       </Box>
 
 
@@ -85,10 +85,10 @@ const ChatBox = () => {
       <Box sx={{ 
         flexGrow: 1, 
         overflowY: 'auto', 
-        p: { xs: 2, md: 5 }, // Adaptive padding for "global" feel
+        p: { xs: 1.5, md: 5 }, // Even tighter for vertical space
         display: 'flex', 
         flexDirection: 'column', 
-        gap: 2,
+        gap: { xs: 1.5, md: 2 },
         scrollbarWidth: 'none',
         '&::-webkit-scrollbar': { display: 'none' }
       }}>
@@ -108,19 +108,19 @@ const ChatBox = () => {
                 </Avatar>
               )}
               <Box sx={{ 
-                p: { xs: 1.8, md: 2.5 }, // Smaller padding on mobile
-                borderRadius: msg.sender === 'user' ? '24px 24px 4px 24px' : '24px 24px 24px 4px',
+                p: { xs: 1.2, md: 2.5 }, // Tight internal padding for mobile efficiency
+                borderRadius: msg.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px', // Slightly smaller radius
                 bgcolor: msg.sender === 'user' ? '#3b82f6' : '#1e2229',
                 color: msg.sender === 'user' ? 'white' : '#e0e0e0',
-                fontSize: { xs: '0.95rem', md: '1rem' }, // Responsive font
-                lineHeight: 1.6,
+                fontSize: { xs: '0.92rem', md: '1rem' }, // Optimized font size
+                lineHeight: 1.5,
                 boxShadow: msg.sender === 'user' ? '0 4px 12px rgba(59, 130, 246, 0.3)' : '0 2px 8px rgba(0,0,0,0.2)',
                 border: msg.sender === 'ai' ? '1px solid #2d333d' : 'none',
                 // Custom styles for Markdown content
-                '& p': { m: 0, mb: 1 },
+                '& p': { m: 0, mb: 0.8 },
                 '& p:last-child': { mb: 0 },
-                '& ol, & ul': { pl: 2.5, m: 0 },
-                '& li': { mb: 0.5 },
+                '& ol, & ul': { pl: 2, m: 0 },
+                '& li': { mb: 0.3 },
                 '& strong': { color: msg.sender === 'user' ? 'white' : '#ffffff' }
               }}>
                 {msg.sender === 'ai' ? (
@@ -172,26 +172,26 @@ const ChatBox = () => {
       </Box>
 
       {/* Input Area - Full Width Sticky */}
-      <Box sx={{ p: { xs: 2, md: 4 }, pt: 0, bgcolor: 'transparent' }}>
+      <Box sx={{ p: { xs: 1.5, md: 4 }, pt: 0, bgcolor: 'transparent' }}>
         <Box sx={{ 
-          maxWidth: '1000px', // Center the input bar on very large screens for usability
+          maxWidth: '1000px', 
           margin: '0 auto',
           display: 'flex', 
           alignItems: 'center', 
-          gap: 1.5, 
+          gap: 1.2, 
           bgcolor: '#1e2229', 
-          p: 1, 
-          borderRadius: '32px',
-          px: 3,
+          p: 0.8, 
+          borderRadius: '28px', // Slightly tighter radius
+          px: { xs: 2, md: 3 },
           border: '1px solid #2d333d',
           boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
         }}>
           <TextField 
             fullWidth 
             multiline 
-            maxRows={6}
+            maxRows={4} // Reduced from 6 to save space
             variant="standard"
-            placeholder="Type your message here..." 
+            placeholder="Type your message..." 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => {
@@ -202,7 +202,7 @@ const ChatBox = () => {
             }}
             InputProps={{ 
               disableUnderline: true, 
-              sx: { py: 1.5, color: '#f3f4f6', fontSize: '1rem' } 
+              sx: { py: { xs: 1, md: 1.5 }, color: '#f3f4f6', fontSize: '0.95rem' } 
             }}
             sx={{
               "& .MuiInputBase-input::placeholder": {
@@ -213,20 +213,20 @@ const ChatBox = () => {
           />
           <IconButton 
             onClick={handleSend} 
-            disabled={!input.trim()}
+            disabled={!input.trim() || isLoading}
             sx={{ 
               bgcolor: input.trim() ? '#3b82f6' : '#2d333d', 
               color: 'white',
               '&:hover': { bgcolor: input.trim() ? '#2563eb' : '#2d333d' },
               transition: 'all 0.2s',
-              width: 48,
-              height: 48
+              width: { xs: 40, md: 48 },
+              height: { xs: 40, md: 48 }
             }}
           >
-            <SendIcon sx={{ fontSize: 24 }} />
+            <SendIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
           </IconButton>
         </Box>
-        <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mt: 1.5, color: '#4b5563' }}>
+        <Typography variant="caption" sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'center', mt: 1.5, color: '#4b5563' }}>
           Global AI Assistant &bull; Always listening &bull; Powered by OpenRouter
         </Typography>
       </Box>
