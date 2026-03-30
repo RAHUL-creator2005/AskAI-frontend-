@@ -57,21 +57,23 @@ const ChatBox = () => {
     <Box sx={{ 
       display: 'flex', 
       flexDirection: 'column', 
-      height: '100vh', 
-      width: '100vw', // Truly Full Width
+      height: { xs: '100dvh', md: '100vh' }, // Dynamic viewport height for mobile!
+      width: '100vw', 
       bgcolor: '#0f1115', 
       color: '#e0e0e0',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
       {/* Header */}
       <Box sx={{ 
-        p: { xs: 1.2, md: 2 }, // Even tighter on mobile!
+        p: { xs: 1.5, md: 2 }, // Increased slightly for visibility!
         px: { xs: 2, md: 4 }, 
         borderBottom: '1px solid #1e2229', 
         display: 'flex', 
         alignItems: 'center', 
         gap: 1.2,
-        bgcolor: '#111419' 
+        bgcolor: '#111419',
+        zIndex: 10 // Ensure it's on top
       }}>
         <Avatar sx={{ bgcolor: '#3b82f6', width: { xs: 28, md: 32 }, height: { xs: 28, md: 32 } }}>
           <SmartToyIcon sx={{ fontSize: { xs: 16, md: 20 } }} />
