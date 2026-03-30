@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/ai';
+const API_URL = 'https://askai-backend-gizl.onrender.com/api/ai';
 
 export const askAI = async (prompt) => {
   try {
