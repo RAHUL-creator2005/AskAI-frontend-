@@ -79,7 +79,6 @@ const ChatBox = () => {
           <SmartToyIcon sx={{ fontSize: { xs: 16, md: 20 } }} />
         </Avatar>
         <Typography variant="h6" fontWeight="700" sx={{ color: '#ffffff', letterSpacing: '0.5px', fontSize: { xs: '1.1rem', md: '1.25rem' } }}>AskAI</Typography>
-        <Typography variant="caption" sx={{ ml: 'auto', color: '#6b7280', display: { xs: 'none', sm: 'block' } }}>Global Interface Active</Typography>
       </Box>
 
 
