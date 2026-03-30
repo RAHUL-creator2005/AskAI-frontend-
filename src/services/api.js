@@ -17,7 +17,7 @@ export const askAI = async (prompt) => {
     }
 
     const result = await response.json();
-    return result.data; // The backend returns { data: { role: '...', content: '...' } }
+    return result; // Returns { success, data, metadata, timestamp }
   } catch (error) {
     console.error('API Error:', error);
     throw error;

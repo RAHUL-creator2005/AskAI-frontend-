@@ -3,14 +3,16 @@ import { Box, TextField, IconButton, Typography, Avatar, Fade } from '@mui/mater
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import PersonIcon from '@mui/icons-material/Person';
+import ReactMarkdown from 'react-markdown';
 import { askAI } from '../services/api.js';
 
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello! I'm your AI assistant. How can I help you today?", sender: 'ai' }
+    { text: "Hello! I'm your AI assistant. How can I help you today?", sender: 'ai', metadata: {} }
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -22,25 +24,32 @@ const ChatBox = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (input.trim()) {
-      const userMessage = { text: input, sender: 'user' };
+    if (input.trim() && !isLoading) {
+      const userMessage = { text: input, sender: 'user', metadata: {} };
       setMessages(prev => [...prev, userMessage]);
       setInput('');
+      setIsLoading(true);
 
-      // Real AI response call
       try {
-        const aiResponse = await askAI(input);
-        setMessages(prev => [...prev, { 
-          text: aiResponse.content, 
-          sender: 'ai' 
-        }]);
+        const response = await askAI(input);
+        if (response.success) {
+          setMessages(prev => [...prev, { 
+            text: response.data.content, 
+            sender: 'ai',
+            metadata: response.metadata 
+          }]);
+        } else {
+          throw new Error(response.message);
+        }
       } catch (error) {
         setMessages(prev => [...prev, { 
           text: "Sorry, I'm having trouble connecting to the server. Please check if the backend is running.", 
-          sender: 'ai' 
+          sender: 'ai',
+          metadata: { error: true }
         }]);
+      } finally {
+        setIsLoading(false);
       }
-
     }
   };
 
@@ -57,7 +66,7 @@ const ChatBox = () => {
       {/* Header */}
       <Box sx={{ 
         p: 2, 
-        px: 4, 
+        px: { xs: 2, md: 4 }, // Responsive padding for mobile!
         borderBottom: '1px solid #1e2229', 
         display: 'flex', 
         alignItems: 'center', 
@@ -99,16 +108,26 @@ const ChatBox = () => {
                 </Avatar>
               )}
               <Box sx={{ 
-                p: 2.5, 
+                p: { xs: 1.8, md: 2.5 }, // Smaller padding on mobile
                 borderRadius: msg.sender === 'user' ? '24px 24px 4px 24px' : '24px 24px 24px 4px',
                 bgcolor: msg.sender === 'user' ? '#3b82f6' : '#1e2229',
                 color: msg.sender === 'user' ? 'white' : '#e0e0e0',
-                fontSize: '1rem',
+                fontSize: { xs: '0.95rem', md: '1rem' }, // Responsive font
                 lineHeight: 1.6,
                 boxShadow: msg.sender === 'user' ? '0 4px 12px rgba(59, 130, 246, 0.3)' : '0 2px 8px rgba(0,0,0,0.2)',
-                border: msg.sender === 'ai' ? '1px solid #2d333d' : 'none'
+                border: msg.sender === 'ai' ? '1px solid #2d333d' : 'none',
+                // Custom styles for Markdown content
+                '& p': { m: 0, mb: 1 },
+                '& p:last-child': { mb: 0 },
+                '& ol, & ul': { pl: 2.5, m: 0 },
+                '& li': { mb: 0.5 },
+                '& strong': { color: msg.sender === 'user' ? 'white' : '#ffffff' }
               }}>
-                {msg.text}
+                {msg.sender === 'ai' ? (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                ) : (
+                  msg.text
+                )}
               </Box>
               {msg.sender === 'user' && (
                 <Avatar sx={{ width: 32, height: 32, bgcolor: '#0ea5e9', color: 'white' }}>
@@ -118,7 +137,38 @@ const ChatBox = () => {
             </Box>
           </Fade>
         ))}
+        {/* Loading Indicator */}
+        {isLoading && (
+          <Fade in={true}>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <Avatar sx={{ width: 32, height: 32, bgcolor: '#1e2229', border: '1px solid #2d333d' }}>
+                <SmartToyIcon sx={{ fontSize: 18, color: '#3b82f6' }} />
+              </Avatar>
+              <Box sx={{ 
+                display: 'flex', 
+                gap: 0.5, 
+                p: 2, 
+                bgcolor: '#1e2229', 
+                borderRadius: '24px 24px 24px 4px',
+                border: '1px solid #2d333d'
+              }}>
+                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite ease-in-out' }} />
+                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.2s ease-in-out' }} />
+                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.4s ease-in-out' }} />
+              </Box>
+            </Box>
+          </Fade>
+        )}
         <div ref={messagesEndRef} />
+        
+        <style>
+          {`
+            @keyframes pulse {
+              0%, 100% { opacity: 0.3; transform: scale(0.8); }
+              50% { opacity: 1; transform: scale(1.2); }
+            }
+          `}
+        </style>
       </Box>
 
       {/* Input Area - Full Width Sticky */}
