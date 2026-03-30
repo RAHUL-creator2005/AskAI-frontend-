@@ -109,20 +109,16 @@ const ChatBox = () => {
                 </Avatar>
               )}
               <Box sx={{ 
-                p: { xs: 1.2, md: 2.5 }, // Tight internal padding for mobile efficiency
-                borderRadius: msg.sender === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px', // Slightly smaller radius
-                bgcolor: msg.sender === 'user' ? '#3b82f6' : '#1e2229',
-                color: msg.sender === 'user' ? 'white' : '#e0e0e0',
-                fontSize: { xs: '0.92rem', md: '1rem' }, // Optimized font size
-                lineHeight: 1.5,
-                boxShadow: msg.sender === 'user' ? '0 4px 12px rgba(59, 130, 246, 0.3)' : '0 2px 8px rgba(0,0,0,0.2)',
-                border: msg.sender === 'ai' ? '1px solid #2d333d' : 'none',
+                p: { xs: 0.5, md: 1 }, // Minimal padding for plain text
+                color: msg.sender === 'user' ? '#3b82f6' : '#e0e0e0', // Use color to distinguish sender
+                fontSize: { xs: '0.95rem', md: '1.05rem' },
+                lineHeight: 1.6,
                 // Custom styles for Markdown content
-                '& p': { m: 0, mb: 0.8 },
+                '& p': { m: 0, mb: 1.2 },
                 '& p:last-child': { mb: 0 },
                 '& ol, & ul': { pl: 2, m: 0 },
-                '& li': { mb: 0.3 },
-                '& strong': { color: msg.sender === 'user' ? 'white' : '#ffffff' }
+                '& li': { mb: 0.5 },
+                '& strong': { color: '#ffffff' }
               }}>
                 {msg.sender === 'ai' ? (
                   <ReactMarkdown>{msg.text}</ReactMarkdown>
@@ -147,15 +143,13 @@ const ChatBox = () => {
               </Avatar>
               <Box sx={{ 
                 display: 'flex', 
-                gap: 0.5, 
-                p: 2, 
-                bgcolor: '#1e2229', 
-                borderRadius: '24px 24px 24px 4px',
-                border: '1px solid #2d333d'
+                gap: 1.5, 
+                p: 1, 
+                bgcolor: 'transparent'
               }}>
-                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite ease-in-out' }} />
-                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.2s ease-in-out' }} />
-                <Box sx={{ width: 8, height: 8, bgcolor: '#6b7280', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.4s ease-in-out' }} />
+                <Box sx={{ width: 6, height: 6, bgcolor: '#3b82f6', borderRadius: '50%', animation: 'pulse 1.5s infinite ease-in-out' }} />
+                <Box sx={{ width: 6, height: 8, bgcolor: '#3b82f6', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.2s ease-in-out' }} />
+                <Box sx={{ width: 6, height: 6, bgcolor: '#3b82f6', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.4s ease-in-out' }} />
               </Box>
             </Box>
           </Fade>
