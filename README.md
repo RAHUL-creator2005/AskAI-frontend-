@@ -46,13 +46,13 @@ The **Intelligent Q&A Engine** is designed to provide accurate answers using AI 
 
 ## 🌐 Live Demo
 
-👉 [Add your deployment link here]
+👉 https://ask-ai-frontend.vercel.app/
 
 ---
 
 ## 💻 GitHub Repository
 
-👉 [Add your repository link here]
+👉
 
 ---
 
