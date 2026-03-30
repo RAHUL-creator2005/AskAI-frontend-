@@ -85,7 +85,7 @@ const ChatBox = () => {
       <Box sx={{ 
         flexGrow: 1, 
         overflowY: 'auto', 
-        p: { xs: 1.5, md: 5 }, // Even tighter for vertical space
+        p: { xs: 1.5, md: 3 }, // Reduced from 5 on desktop
         display: 'flex', 
         flexDirection: 'column', 
         gap: { xs: 1.5, md: 2 },
@@ -100,7 +100,7 @@ const ChatBox = () => {
               alignItems: 'flex-end', 
               gap: 2,
               alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-              maxWidth: { xs: '90%', md: '70%' } // Allow breathing room on larger screens
+              maxWidth: { xs: '90%', md: '85%' } // Increased from 70% to use space better
             }}>
               {msg.sender === 'ai' && (
                 <Avatar sx={{ width: 32, height: 32, bgcolor: '#1e2229', color: '#888', border: '1px solid #2d333d' }}>
@@ -172,7 +172,7 @@ const ChatBox = () => {
       </Box>
 
       {/* Input Area - Full Width Sticky */}
-      <Box sx={{ p: { xs: 1.5, md: 4 }, pt: 0, bgcolor: 'transparent' }}>
+      <Box sx={{ p: { xs: 1.5, md: 2.5 }, pt: 0, bgcolor: 'transparent' }}>
         <Box sx={{ 
           maxWidth: '1000px', 
           margin: '0 auto',
